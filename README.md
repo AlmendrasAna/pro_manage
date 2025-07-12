@@ -214,5 +214,22 @@ Si se decide migrar a infraestructura propia, la aplicación estara  preparada p
 - Separación clara de responsabilidades dentro del monolito.
 
 ---
+## ⚙️ Estrategia inicial de Escalabilidad en ProManage
 
+ProManage apuesta por una escalabilidad progresiva, iniciando con una arquitectura monolítica modular que permite desarrollo ágil y validación rápida. Gracias a tecnologías como Docker, Railway (PaaS) y Supabase (BaaS), estos servicios reducen la carga del backend principal y aseguran que el sistema escala automáticamente según demanda, sin requerir infraestructura compleja.
+
+## ⚙️ Estrategia futura de Escalabilidad en ProManage
+
+ProManage al comenzar con una estructura modular dentro de un solo sistema (monolito), pero cada parte está bien separada: usuarios, proyectos, reportes, etc.
+Gracias a eso, será fácil en el futuro separar cada módulo y convertirlo en un microservicio, sin tener que rehacer todo desde cero.
+
+Además, como ya se usa Docker, cada módulo ya está "empaquetado", lo que facilita moverlos a Kubernetes.
+
+Con Kubernetes, ProManage podrá:
+- Tener varias copias de un servicio si muchas personas lo usan.
+- Asignar más recursos solo a las partes que lo necesiten.
+- Recuperarse solo si algo falla.
+- Hacer crecer la app sin detenerla.
+
+>👉 En resumen, ProManage será construido sobre principios que equilibran desarrollo ágil, eficiencia de costos y capacidad de adaptación a medida que crece el número de usuarios o funcionalidades del sistema.
 
