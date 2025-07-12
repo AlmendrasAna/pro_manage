@@ -72,7 +72,7 @@ Esta plataforma permitirá a los usuarios:
 | **💰 Ahorro de recursos**        | Menos  costos operativo: una sola app consume menos infraestructura y gestión que múltiples servicios. |
 
 --- 
-# Diagrama de Arquitectura monolítica modular para ProManage
+## Diagrama de Arquitectura monolítica modular para ProManage
 
 ```mermaid
 flowchart TD
