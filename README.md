@@ -17,8 +17,8 @@ Esta plataforma permitirá a los usuarios:
 
 ---
 
-## 📊 Diagrama en Mermaid
-
+## 📊 Arquitectura monolítica modular para ProManage
+ 
 ```mermaid
 flowchart TD
  subgraph subGraph0["Módulos Internos del Monolito"]
