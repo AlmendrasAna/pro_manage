@@ -14,12 +14,12 @@ Esta plataforma permitirá a los usuarios:
 ## 🧩 Funcionalidades Principales
 
 | Funcionalidad                               | Descripción                                                                 |
-|--------------------------------------------|-----------------------------------------------------------------------------|
+|---------------------------------------------|-----------------------------------------------------------------------------|
 | 🔐 Registro y autenticación de usuarios     | Gestión de acceso con Supabase Auth.                                        |
 | 📁 Gestión de proyectos                     | Permite crear, editar y visualizar proyectos.                               |
 | 💰 Asignación de presupuestos               | Define y asigna presupuestos individualmente por proyecto.                  |
 | 📎 Adjuntar archivos                        | Carga y vinculación de documentos relevantes vía Supabase Storage.          |
-| 📆 Control de fechas y plazos               | Gestión de tiempos clave y fechas de entrega.                              |
+| 📆 Control de fechas y plazos               | Gestión de tiempos clave y fechas de entrega.                               |
 | 👥 Roles y permisos                         | Configura distintos niveles de acceso para los usuarios.                    |
 | ✉️ Notificaciones por correo                | Alertas automáticas enviadas vía Resend.                                    |
 
@@ -33,7 +33,8 @@ Esta plataforma permitirá a los usuarios:
 | **Supabase**           | Solución BaaS que  permite centrarse en el negocio, no en reinventar el backend. Autenticación, base de datos relacional y almacenamiento de archivos ya vienen listos para usarse, y se integran perfectamente con una arquitectura monolítica.|
 | **Resend**             | Permite el envío de notificaciones automáticas por correo de forma confiable y escalable. |
 | **Docker**             | Garantiza portabilidad y consistencia en diferentes entornos gracias a la contenerización. |
-| **Kubernetes (Opcional)** | Facilita la orquestación de contenedores en entornos complejos, ideal para escalar en fases avanzadas. |
+| **Docker hub**         | Garantiza desplegar versiones consistentes en diferentes entornos de forma segura y eficienteportabilidad gracias a la contenerización. |
+| **Kubernetes (futuro)** | Facilita la orquestación de contenedores en entornos complejos, ideal para escalar en fases avanzadas. |
 
 ---
 
@@ -43,7 +44,8 @@ Esta plataforma permitirá a los usuarios:
 |----------------------|--------------------------|-------------------------------------------------------------|
 | **Infraestructura**  | Railway (PaaS)           | Despliegue y escalado automático                            |
 |                      | Docker                   | Contenerización de la aplicación                            |
-|                      | Kubernetes (opcional)    | Orquestación avanzada de contenedores                       |
+|                      | Docker Hub               | Gestión de registros de contenedores                        |
+|                      | Kubernetes (futuro)      | Orquestación avanzada de contenedores                       |
 | **Backend / BaaS**   | Supabase Auth            | Registro e inicio de sesión de usuarios                     |
 |                      | Supabase PostgreSQL      | Base de datos relacional para entidades del sistema         |
 |                      | Supabase Storage         | Gestión de archivos y documentos                            |
@@ -160,38 +162,6 @@ Supabase ofrece servicios backend listos para usar como autenticación, base de 
 
 ---
 
-
-
-## 🐳 ¿Por qué usar Docker?
-
-**Docker** permite empaquetar la aplicación y sus dependencias en un contenedor que se ejecuta de forma consistente en cualquier entorno.
-
-| Aspecto                            | Justificación                                                                                     |
-|------------------------------------|---------------------------------------------------------------------------------------------------|
-| 🔁 Consistencia entre entornos     | Funciona igual en desarrollo, testing y producción.                                               |
-| 📦 Aislamiento de dependencias     | Sin conflictos entre versiones o librerías.                                                       |
-| 🚀 Facilita el despliegue          | Compatible con Railway, Kubernetes, etc.                                                          |
-| 🧪 Entornos reproducibles          | Ideal para testing y debugging.                                                                  |
-| 📚 Documentación ejecutable        | El `Dockerfile` documenta el entorno.                                                             |
-| ⚙️ CI/CD amigable                  | Fácil integración en pipelines.                                                                  |
-| 🌍 Portabilidad total              | Ejecutable en cualquier sistema que tenga Docker.                                                |
-> En resumen: **Docker permite a ProManage ser más portátil, reproducible y fácil de desplegar**, acelerando el desarrollo y simplificando la entrega continua.
----
-
-## 📦 ¿Por qué Docker Hub?
-
-**Docker Hub** es el registro más utilizado para almacenar y distribuir imágenes Docker de forma segura y accesible.
-
-| Aspecto                            | Justificación                                                                                     |
-|------------------------------------|---------------------------------------------------------------------------------------------------|
-| 🌍 Acceso global                   | Alta disponibilidad y baja latencia.                                                             |
-| 🔁 Versionado y trazabilidad       | Permite mantener historial de imágenes (`v1.0.0`, `latest`, etc.).                               |
-| 🛠️ Compatible con CI/CD           | Push/pull automatizado desde pipelines.                                                          |
-| 🔒 Repos públicos o privados       | Control de acceso flexible para equipos.                                                         |
-| 📊 Dashboard y métricas            | Estadísticas de uso, tags y actividad.                                                           |
-
----
-
 ## 📦 Uso de Contenedores ¿Por qué usar Docker?
 
 🧊 Docker se utiliza para empaquetar la aplicación junto con su entorno completo de ejecución — incluyendo código, dependencias y configuración — dentro de un contenedor portátil. Esta estrategia garantiza que la app se comporte de forma idéntica en desarrollo, pruebas o producción, lo que simplifica el despliegue, refuerza la seguridad y asegura consistencia operativa en cada etapa del ciclo de vida del software.
@@ -210,13 +180,38 @@ Supabase ofrece servicios backend listos para usar como autenticación, base de 
 > En resumen: **Docker permite que ProManage sea consistente, portable, escalable y lista para entregar valor desde el primer despliegue.**
 
 
+## 📦 ¿Por qué Docker Hub para la gestión de registros de contenedores?
 
-## 🌐 Escalabilidad y Mantenimiento
+**Docker Hub** es el registro público más utilizado para almacenar, versionar y distribuir imágenes Docker. En el contexto de ProManage, actúa como repositorio central desde el cual Railway u otros entornos pueden obtener las versiones más recientes de la aplicación.
 
-- Railway permite escalar automáticamente en función del tráfico y la carga.
-- Se utiliza contenerización con Docker para portabilidad y consistencia entre entornos.
-- Supabase desacopla funcionalidades críticas como autenticación y almacenamiento.
-- La arquitectura monolítica permite simplicidad en fases iniciales, con opción a evolucionar.
+| Aspecto                            | Justificación                                                                                     |
+|------------------------------------|---------------------------------------------------------------------------------------------------|
+| 🌍 Acceso global                   | Alta disponibilidad y baja latencia.                                                             |
+| 🔁 Versionado y trazabilidad       | Permite mantener historial de imágenes (`v1.0.0`, `latest`, etc.).                               |
+| 🛠️ Compatible con CI/CD           | Push/pull automatizado desde pipelines.                                                          |
+| 🔒 Repos públicos o privados       | Control de acceso flexible para equipos.                                                         |
+| 📊 Dashboard y métricas            | Estadísticas de uso, tags y actividad.                                                           |
+> En resumen: **Docker Hub centraliza y simplifica la distribución de contenedores para ProManage**, |permitiendo desplegar versiones consistentes en diferentes entornos de forma segura y eficiente.
+---
+## 🤖 Orquestación de Contenedores
+En primera instancia, **la orquestación la maneja Railway** como parte de su servicio PaaS, lo que acelera la entrega y simplifica la operación.
+
+### Railway (PaaS)
+Railway se encarga de toda la orquestación de forma automática:
+
+- 🚀 Inicia, detiene y escala los contenedores según demanda.
+- 🔄 Realiza despliegues desde GitHub o imágenes de Docker Hub.
+- ⚙️ Gestiona recursos, dominios, certificados y variables de entorno.
+- 🧪 Permite entornos aislados como `production`, `staging`, `preview`.
+
+Esto permite a ProManage centrarse en el desarrollo, sin necesidad de configurar manualmente Kubernetes u otras herramientas complejas.
+
+### Kubernetes (Escenario futuro)
+Si se decide migrar a infraestructura propia, la aplicación estara  preparada para orquestarse con Kubernetes gracias a:
+
+- Un `Dockerfile` portable y optimizado.
+- Buenas prácticas de contenerización.
+- Separación clara de responsabilidades dentro del monolito.
 
 ---
 
