@@ -1,19 +1,40 @@
-# 📌Resumen caso ProManage  – Plataforma de gestión administrativa
-El presente documento describe el diseño arquitectónico propuesto, así como las decisiones clave en materia de escalabilidad, disponibilidad, seguridad y mantenimiento continuo. El objetivo es garantizar que la plataforma pueda crecer de forma sostenible, adaptarse a nuevas necesidades y ofrecer una experiencia fluida a todos sus usuarios.
+#  🧾Resumen caso ProManage  – Plataforma de gestión administrativa
 
-La empresa **ProManage** con el objetivo de optimizar su desarrollo de una plataforma de gestión administrativa, ha conformado un equipo especializado en **DevOps**, que seran los encargado de diseñar una solución robusta, escalable y segura.
+**ProManage** es una plataforma de gestión administrativa diseñada para facilitar la planificación, organización y seguimiento de proyectos dentro de una organización. Con el objetivo de optimizar su desarrollo, la empresa ha conformado un equipo especializado en DevOps, encargado de diseñar una solución robusta, escalable y segura. La aplicación permitira registrar usuarios, crear proyectos, adjuntar archivos relevantes, asignar presupuestos y controlar fechas y roles de acceso, brindando así una herramienta integral para la gestión eficiente de proyectos.
+
+## 🚀 Objetivos del Proyecto
+
+- Simplificar la gestión de proyectos desde una única interfaz.
+- Ofrecer control de acceso por roles.
+- Almacenar archivos y documentos relacionados a cada proyecto.
+- Notificar a los usuarios sobre eventos importantes.
+- Facilitar la escalabilidad y el mantenimiento con buenas prácticas DevOps.
 
 Esta plataforma permitirá a los usuarios:
-# 📊 Módulos Funcionales
+## 🧩 Funcionalidades Principales
 
-| Función                      | Descripción                                                                 |
-|------------------------------|-----------------------------------------------------------------------------|
-| 🔐 Autenticación y Autorización | - Registro, inicio de sesión y gestión de tokens seguros (JWT/OAuth2).<br>- Control de acceso basado en roles (RBAC) para proteger rutas y acciones. |
-| 📁 Gestión de Proyectos       | - Creación, edición y visualización de proyectos. |
-| 💰 Presupuestos               | - Asignación y seguimiento de montos presupuestados por proyecto.<br>- Historial de modificaciones y alertas ante sobrecostos. |
-| 📎 Adjuntar Archivos y Documentos | - Carga, visualización y descarga de archivos (PDF, imágenes, Excel). |
-| 📆 Fechas y Plazos de Entrega | - Definición de hitos, fechas límite y recordatorios automáticos.<br>- Vista de calendario. |
-| 👥 Perfiles y Roles de Usuario | - Niveles de acceso (admin, gestor, colaborador, cliente).<br>- Pantallas y funcionalidades habilitadas según rol. |
+| Funcionalidad                               | Descripción                                                                 |
+|--------------------------------------------|-----------------------------------------------------------------------------|
+| 🔐 Registro y autenticación de usuarios     | Gestión de acceso con Supabase Auth.                                        |
+| 📁 Gestión de proyectos                     | Permite crear, editar y visualizar proyectos.                               |
+| 💰 Asignación de presupuestos               | Define y asigna presupuestos individualmente por proyecto.                  |
+| 📎 Adjuntar archivos                        | Carga y vinculación de documentos relevantes vía Supabase Storage.          |
+| 📆 Control de fechas y plazos               | Gestión de tiempos clave y fechas de entrega.                              |
+| 👥 Roles y permisos                         | Configura distintos niveles de acceso para los usuarios.                    |
+| ✉️ Notificaciones por correo                | Alertas automáticas enviadas vía Resend.                                    |
+
+
+## 🧱 Arquitectura del Proyecto
+| Componente                   | Descripción y Motivo de Uso                                             |
+|------------------------------|-------------------------------------------------------------------------|
+| **Arquitectura Monolítica** | Simplifica el desarrollo inicial, reduciendo complejidad técnica, con posibilidad de transición futura. |
+| **Railway**            | Provee infraestructura como servicio (PaaS) con escalado automático y monitoreo eficiente. |
+| **Supabase**           | Solución BaaS que desacopla autenticación, base de datos (PostgreSQL) y almacenamiento, acelerando el desarrollo. |
+| **Resend**             | Permite el envío de notificaciones automáticas por correo de forma confiable y escalable. |
+| **Docker**             | Garantiza portabilidad y consistencia en diferentes entornos gracias a la contenerización. |
+| **Kubernetes (Opcional)** | Facilita la orquestación de contenedores en entornos complejos, ideal para escalar en fases avanzadas. |
+
+
 
 ---
 
@@ -52,5 +73,48 @@ Es una arquitectura monolítica modular para ProManage, donde todo el backend es
 - Base de Datos PostgreSQL: Compartida por todos los módulos.
 - Almacenamiento en la nube: Usado solo por el módulo de archivos.
 
+
+
+
+---
+
+## 🧱 Arquitectura del Proyecto
+
+| Componente                | Descripción                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| **Modelo Arquitectónico** | Arquitectura Monolítica                                                     |
+| **Infraestructura (PaaS)**| [Railway](https://railway.app) — despliegue, escalado y monitoreo automático |
+| **Contenerización**       | Docker — para empaquetar la aplicación                                      |
+| **Orquestación**          | Kubernetes — opcional para entornos más avanzados                          |
+| **Backend as a Service**  | Supabase — autenticación, base de datos (PostgreSQL) y almacenamiento       |
+| **Notificaciones**        | Resend — envío de correos y alertas a usuarios                             |
+
+
+
+---
+
+## ⚙️ Tecnologías Utilizadas
+
+| Categoría             | Tecnología               | Uso principal                                               |
+|----------------------|--------------------------|-------------------------------------------------------------|
+| **Infraestructura**  | Railway (PaaS)           | Despliegue y escalado automático                            |
+|                      | Docker                   | Contenerización de la aplicación                            |
+|                      | Kubernetes (opcional)    | Orquestación avanzada de contenedores                       |
+| **Backend / BaaS**   | Supabase Auth            | Registro e inicio de sesión de usuarios                     |
+|                      | Supabase PostgreSQL      | Base de datos relacional para entidades del sistema         |
+|                      | Supabase Storage         | Gestión de archivos y documentos                            |
+| **Notificaciones**   | Resend                   | Envío de correos electrónicos y alertas                     |
+| **Control de código**| Git + GitHub             | Control de versiones y colaboración                         |
+
+---
+
+## 🌐 Escalabilidad y Mantenimiento
+
+- Railway permite escalar automáticamente en función del tráfico y la carga.
+- Se utiliza contenerización con Docker para portabilidad y consistencia entre entornos.
+- Supabase desacopla funcionalidades críticas como autenticación y almacenamiento.
+- La arquitectura monolítica permite simplicidad en fases iniciales, con opción a evolucionar.
+
+---
 
 
